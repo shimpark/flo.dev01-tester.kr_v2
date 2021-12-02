@@ -1,0 +1,39 @@
+#wrap {
+    .motion-1 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-2 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-3 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-4 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-5 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-6 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-7 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-8 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-9 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-10 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-11 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+    .motion-12 { opacity: 0; @include translateY(50px); @include transition(all, .5s); }
+
+    .motion-box-1 { opacity: 0; @include scaleXY(.1, .1); @include transition(all, .5s); }
+    .motion-box-2 { opacity: 0; @include scaleXY(.1, .1); @include transition(all, .5s); }
+    .motion-box-3 { opacity: 0; @include scaleXY(.1, .1); @include transition(all, .5s); }
+    .motion-box-4 { opacity: 0; @include scaleXY(.1, .1); @include transition(all, .5s); }
+
+    .active {
+        .motion-1 { opacity: 1; @include translateY(0); @include transitionDelay(.2s); }
+        .motion-2 { opacity: 1; @include translateY(0); @include transitionDelay(.4s); }
+        .motion-3 { opacity: 1; @include translateY(0); @include transitionDelay(.6s); }
+        .motion-4 { opacity: 1; @include translateY(0); @include transitionDelay(.8s); }
+        .motion-5 { opacity: 1; @include translateY(0); @include transitionDelay(1.0s); }
+        .motion-6 { opacity: 1; @include translateY(0); @include transitionDelay(1.2s); }
+        .motion-7 { opacity: 1; @include translateY(0); @include transitionDelay(1.4s); }
+        .motion-8 { opacity: 1; @include translateY(0); @include transitionDelay(1.6s); }
+        .motion-9 { opacity: 1; @include translateY(0); @include transitionDelay(1.8s); }
+        .motion-10 { opacity: 1; @include translateY(0); @include transitionDelay(2.0s); }
+        .motion-11 { opacity: 1; @include translateY(0); @include transitionDelay(2.2s); }
+        .motion-12 { opacity: 1; @include translateY(0); @include transitionDelay(2.4s); }
+
+        .motion-box-1 { opacity: 1; @include scaleXY(1, 1); @include transitionDelay(.1s); }
+        .motion-box-2 { opacity: 1; @include scaleXY(1, 1); @include transitionDelay(.2s); }
+        .motion-box-3 { opacity: 1; @include scaleXY(1, 1); @include transitionDelay(.3s); }
+        .motion-box-4 { opacity: 1; @include scaleXY(1, 1); @include transitionDelay(.4s); }
+    }
+}

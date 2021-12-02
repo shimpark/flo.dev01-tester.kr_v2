@@ -1,0 +1,571 @@
+//// mixin
+// breakpoint
+// @include breakpoint(maxMobile){ ... }
+@mixin breakpoint($point) {
+    @if $point == desktop {
+        @media screen and (min-width: 1200px) { @content ; }
+    }
+    @if $point == minDesktop {
+        @media screen and (min-width: 1024px) { @content ; }
+    }
+    @if $point == maxMobile {
+        @media screen and (min-width: 720px) { @content ; }
+    }
+    @else if $point == minMobile {
+        @media screen and (max-width: 320px) { @content ; }
+    }
+    @else if $point == galaxyfold { // for galaxyfold
+        @media screen and (min-width: 590px) and (min-height: 603px) { @content ; }
+    }
+}
+
+// Custom devices
+// @include rwdWidth(1400) { ... }
+@mixin rwdWidth($width) {
+    @media (min-width: $width+'px') {
+        @content;
+    }
+}
+// @include rwdHeight(1400) { ... }
+@mixin rwdHeight($height) {
+    @media (max-height: $height+'px') {
+        @content;
+    }
+}
+
+
+// box-sizing
+// @include boxSizing(border-box);
+@mixin boxSizing($box) {
+    @each $prefix in -webkit-, '' {
+        #{$prefix}box-sizing: $box;
+    }
+}
+
+// box-shadow
+// @include boxShadow(0 10px 5px 0 rgba(0, 0, 0, .5));
+// @include boxShadow(5px 5px 5px 0 rgba(255, 255, 255, .3) inset, -5px -5px 5px 0 rgba(0, 0, 0, .25) inset);
+@mixin boxShadow($value){
+    @each $prefix in -webkit-, '' {
+        #{$prefix}box-shadow: $value;
+    }
+}
+
+// transition
+// @include transition(all, .3s, ease-out);
+@mixin transition($what, $time, $how: null) {
+    @each $prefix in -webkit-, -o-, '' {
+        #{$prefix}transition: $what $time $how;
+    }
+
+    @if $how {
+        transition-timing-function: $how;
+    } @else {
+        transition-timing-function: ease-out;
+    }
+}
+
+// transition delay
+// @include transitionDelay(.1s);
+@mixin transitionDelay($delay) {
+    @each $prefix in -webkit-, -o-, '' {
+        #{$prefix}transition-delay: $delay;
+    }
+}
+
+// transform
+@mixin transform($transforms) {
+    @each $prefix in -webkit-, -ms-, '' {
+        #{$prefix}transform: $transforms;
+    }
+}
+
+// transform : rotate
+@mixin rotate($deg) {
+    @include transform(rotate($deg));
+}
+
+@mixin rotateX($deg) {
+    @include transform(rotateX($deg));
+}
+
+@mixin rotateY($deg) {
+    @include transform(rotateY($deg));
+}
+
+// transform : scale XY
+@mixin scaleXY($x, $y) {
+    @include transform(scale($x, $y));
+}
+
+// transform : scale X
+@mixin scaleX($x) {
+    @include transform(scaleX($x));
+}
+
+// transform : scale Y
+@mixin scaleY($y) {
+    @include transform(scaleY($y));
+}
+
+// transform : translate XY
+@mixin translateXY($x, $y) {
+    @include transform(translate($x, $y));
+}
+
+// transform : translate X
+@mixin translateX($x) {
+    @include transform(translateX($x));
+}
+
+// transform : translate Y
+@mixin translateY($y) {
+    @include transform(translateY($y));
+}
+
+// transform : skew XY
+@mixin skewXY($x, $y) {
+    @include transform(skew($x, $y));
+}
+
+// transform : skew X
+@mixin skewX($x) {
+    @include transform(skewX($x));
+}
+
+// transform : skew Y
+@mixin skewY($y) {
+    @include transform(skewY($y));
+}
+
+// transform : transform-origin
+@mixin transformOrigin($origin) {
+    @each $prefix in -webkit-, -ms-, '' {
+        #{$prefix}transform-origin: $origin;
+    }
+}
+
+// close
+// @include close(30px, 30px, 1px, #000);
+@mixin close($width, $height, $thickness, $color) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    @include vw(width, $width);
+    @include vw(height, $height);
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        width: $width / 2;
+        height: $thickness;
+        margin-left: -($width / 2) / 2;
+        background-color: $color;
+    }
+    &:before { @include rotate(45deg); }
+    &:after { @include rotate(315deg); }
+    span {
+        position: absolute;
+        display: inline-block;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        width: 0px;
+        height: 0px;
+        margin: -1px;
+        padding: 0;
+        word-break: keep-all;
+        white-space: nowrap;
+        color: transparent;
+        border: 0;
+        text-indent: -9999px;
+    }
+}
+
+// closeButton
+// @include closeButton(#355ef0, 40px, 2px, #fff);
+@mixin closeButton($bgColor, $size, $thickness, $lineColor) {
+    & {
+        display: inline-block;
+        width: $size;
+        height: $size;
+        padding: $size/2;
+        cursor: pointer;
+    }
+
+    @if $bgColor {
+        background-color: $bgColor;
+    } @else {
+        background-color: transparent;
+    }
+
+    &:before,
+    &:after {
+        content: '';
+        display: block;
+        width: 140%;
+        height: $thickness;
+        background: $lineColor;
+    }
+
+    &:before {
+        margin-top: -$thickness/4;
+        margin-left: $thickness/2;
+        @include rotate(45deg);
+        @include transformOrigin(0 0);
+    }
+
+    &:after {
+        margin-left: -41%;
+        margin-top: -$thickness;
+        @include rotate(-45deg);
+        @include transformOrigin(100% 0);
+    }
+}
+
+// arrow
+// @include arrow(left, 8px, 8px, 2px, $color-base-dark);
+@mixin arrow($direction, $width, $height, $borderWidth, $color) {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: block;
+    @include vw(width, $width);
+    @include vw(height, $height);
+    @include vw(margin-top, -($width/2));
+    border-width: 0;
+    border-style: solid;
+    border-color: $color;
+    @include rotate(45deg);
+
+    @if $direction == 'right' {
+        border-top-width: $borderWidth;
+        border-right-width: $borderWidth;
+    } @else if $direction == 'left' {
+        border-bottom-width: $borderWidth;
+        border-left-width: $borderWidth;
+    } @else if $direction == 'bottom' {
+        border-bottom-width: $borderWidth;
+        border-right-width: $borderWidth;
+    } @else if $direction == 'top' {
+        border-top-width: $borderWidth;
+        border-left-width: $borderWidth;
+    }
+}
+
+// arrow for slide
+// @include slideArrow(left, 60px, 60px, 2px, #000);
+// @include slideArrow(right, 60px, 60px, 2px, #000);
+// @include slideArrow(left, 60px, 60px, 2px, #fff, rgba(0,0,0,.7));
+// @include slideArrow(right, 60px, 60px, 2px, #fff, rgba(0,0,0,.7));
+@mixin slideArrow($direction, $width, $height, $borderWidth, $borderColor, $bgColor: null) {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    display: block;
+    @include vw(width, $width);
+    @include vw(height, $height);
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    color: transparent;
+    text-indent: -9999px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    @include translateY(-50%);
+
+    @if $bgColor {
+        background: $bgColor;
+    } @else {
+        background: none;
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        @include vw(width, ($width/4));
+        @include vw(height, ($height/4));
+        border-width: 0;
+        border-style: solid;
+        border-color: $borderColor;
+
+        @if $direction == 'right' {
+            border-top-width: $borderWidth;
+            border-right-width: $borderWidth;
+            @include transform(translate(-75%, -50%) rotate(45deg));
+        } @else if $direction == 'left' {
+            border-bottom-width: $borderWidth;
+            border-left-width: $borderWidth;
+            @include transform(translate(-25%, -50%) rotate(45deg));
+        } @else if $direction == 'bottom' {
+            border-bottom-width: $borderWidth;
+            border-right-width: $borderWidth;
+            @include transform(translate(-50%, -75%) rotate(45deg));
+        } @else if $direction == 'top' {
+            border-top-width: $borderWidth;
+            border-left-width: $borderWidth;
+            @include transform(translate(-50%, -25%) rotate(45deg));
+        }
+    }
+}
+
+// rem
+// @include rem(margin, 25px 20px 0);
+// https://hugogiraudel.com/2013/03/18/ultimate-rem-mixin/
+@function parseInt($n) {
+    // The mixin relies on a function to parse the integer from a value with a unit
+    @return $n / ($n * 0 + 1);
+}
+
+@mixin rem($property, $values) {
+    $px: (); // We define a list of values for both units
+    $rem: (); // We define a list of values for both units
+
+    @each $value in $values {
+    // We iterate through each value in the given parameter $values
+
+        @if $value == 0 or $value == auto {
+            // If the value is either auto or 0, we append it to the list as-is
+            $px: append($px, $value);
+            $rem: append($rem, $value);
+        } @else {
+            $unit: unit($value); // If the value has a unit, we split it to get both the unit and the raw value
+            $val: parseInt($value); // If the value has a unit, we split it to get both the unit and the raw value
+
+            @if $unit == 'px' {
+                // We append according values to the lists depending on the unit of the given value
+                $px: append($px, $value);
+                $rem: append($rem, ($val / 16 / 2+ rem));
+            }
+
+            @if $unit == 'rem' {
+                // We append according values to the lists depending on the unit of the given value
+                $px: append($px, ($val * 16 + px));
+                $rem: append($rem, $value);
+            }
+        }
+    }
+
+    @if $px == $rem {
+        // If the two lists are the same, we ouput only one (like margin-top: 0)
+        #{$property}: $px; // output the result
+    } @else {
+        #{$property}: $rem;  // output the result
+        @include breakpoint(maxMobile){
+            #{$property}: $px; // output the result
+        }
+    }
+}
+
+// vw
+// @include vw(font-size, 50px);
+@mixin vw($property, $values) {
+    $px: ();
+    $vw: ();
+
+    @each $value in $values {
+        @if $value == 0 or $value == auto {
+            $px: append($px, $value);
+            $vw: append($vw, $value);
+        } @else {
+            $unit: unit($value);
+            $val: parseInt($value);
+
+            @if $unit == 'px' {
+                $px: append($px, $value);
+                $max-mobile: 720;
+                $vw-context: ($max-mobile * .01) * 1;
+                $vw: append($vw, (($val/$vw-context) * 1 + vw));
+            }
+
+            @if $unit == 'vw' {
+                $px: append($px, ($val * 16 + px));
+                $vw: append($vw, $value);
+            }
+        }
+    }
+
+    @if $px == $vw {
+        #{$property}: $px;
+    } @else {
+        #{$property}: $vw;
+        @include breakpoint(maxMobile){
+            #{$property}: $px;
+        }
+    }
+}
+
+// Read the article: http://sassbreak.com/viewport-relative-headings-with-sass
+// Function
+@function get-vw($target){
+    // 1 vw is equal to 1% of the viewport width
+    $vw-context: ($max-mobile * .01) * 1px; // 1% viewport width
+    @return ($target/$vw-context) * 1vw;
+}
+
+// percent
+// top: percent(722, 1000);
+// right: percent(50);
+@function percent($target, $parent: $max-mobile) {
+    @return percentage($target / $parent);
+}
+
+
+// pointer
+// @include pointer(50%, 0, 66px, 73px, '../img/icon_pointer.png', bounce);
+@mixin pointer($top, $right, $width, $height, $bg, $animation) {
+    position: relative;
+    display: inline-block;
+    &:after {
+        content: '';
+        position: absolute;
+        top: $top;
+        right: $right;
+        z-index: 1;
+        display: block;
+        @include rem(width, $width);
+        @include rem(height, $height);
+        background: url($bg) no-repeat 0 0;
+        background-size: 100% auto;
+
+
+        @if $animation == 'bounce' {
+            @include animation(pointerBounceDiagonal, .8s, $iteration: infinite){
+                0%, 100% { @include translateXY(0, 0); }
+                50% { @include translateXY(-10px, -10px); }
+            }
+        } @else if $animation == 'bounce2' {
+            @include animation(pointerBounceUpDown, .8s, $iteration: infinite){
+                0%, 100% { @include translateY(0); }
+                50% { @include translateY(-10px); }
+            }
+        } @else if $animation == 'extend' {
+            @include animation(pointerExtend, .8s, $iteration: infinite){
+                0%, 100% { @include scaleXY(1, 1); }
+                50% { @include scaleXY(1.1, 1.1); }
+            }
+        }
+    }
+}
+
+// animation
+// @include animation(shadow, 2s) {
+// 	0% { @include boxShadow(0, 0, 16px, 2px, rgba(251, 104, 90, .3)); }
+// 	50% { @include boxShadow(0, 0, 5px, 2px, rgba(251, 104, 90, .3)); }
+// 	100% { @include boxShadow(0, 0, 16px, 2px, rgba(251, 104, 90, .3)); }
+// }
+
+// @include animation(rotation, 16s, $iteration: infinite, $timing: linear ,$reverse: reverse) {
+// 	100% { @include rotate(360deg); }
+// }
+@mixin animation($name, $duration, $iteration: null, $timing: null, $reverse: null) {
+    //$name: inline-$name;
+
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+
+    animation-name: $name;
+    animation-duration: $duration;
+
+    @if $iteration {
+        animation-iteration-count: $iteration;
+    } @else {
+        animation-iteration-count: 1;
+    }
+
+    @if $timing {
+        animation-timing-function: $timing;
+    } @else {
+        animation-timing-function: ease;
+    }
+
+    @if $reverse {
+        animation-direction: $reverse;
+    } @else {
+        animation-direction: normal;
+    }
+}
+
+// animation delay
+// @include animationDelay(.1s);
+@mixin animationDelay($delay) {
+    @each $prefix in -webkit-, '' {
+        #{$prefix}animation-delay: $delay;
+    }
+}
+
+
+/// Mixin printing a linear-gradient 
+/// as well as a plain color fallback 
+/// and the `-webkit-` prefixed declaration
+/// @access public
+/// @param {String | List | Angle} $direction - Linear gradient direction
+/// @param {Arglist} $color-stops - List of color-stops composing the gradient
+
+// @include linear-gradient(#31B7D7, #EDAC7D);
+// @include linear-gradient(to right, #fa6568 0%, #ff9048 100%);
+// @include linear-gradient(190deg, #f2f3f7 0%, #f2f3f7 50%, #e1ebf5 50%, #e1ebf5 90%, #f2f3f7 90%, #f2f3f7 100%);
+@mixin linear-gradient($direction, $color-stops...) {
+    @if is-direction($direction) == false {
+        $color-stops: ($direction, $color-stops);
+        $direction: 180deg;
+    }
+
+    background: nth(nth($color-stops, 1), 1);
+    background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+    background: linear-gradient($direction, $color-stops);
+}
+
+// @include bg($color: #001d3d, $url: '#{$img-path}/pc/bg_top.jpg');
+// @include bg($color: #a5d0fb, $url: '#{$img-path}/pc/bg_title.jpg', $size: cover);
+@mixin bg($color: null, $url: null, $repeat: null, $position: null, $size: null){
+    @if $color {
+        background-color: $color;
+    }
+
+    @if $url {
+        background-image: url($url);
+    }
+
+    @if $repeat {
+        background-repeat: $repeat;
+    } @else {
+        background-repeat: no-repeat;
+    }
+
+    @if $position {
+        background-position: $position;
+    } @else {
+        background-position: center top;
+    }
+
+    @if $size {
+        background-size: $size;
+    } @else {
+        background-size: auto;
+    }
+}
+
+// multiple text ellipsis
+// @include multipleEllipsis(3);
+@mixin multipleEllipsis($line){
+    display: -webkit-box;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+}

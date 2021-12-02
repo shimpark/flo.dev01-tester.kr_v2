@@ -1,0 +1,258 @@
+// display flex center
+%flexCenter {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-item: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+// 플로팅 해제
+%clearfix {
+    *zoom: 1;
+    &:before,
+    &:after {
+        content: '';
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+// 말줄임
+%textEllipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+// 말줄임 해제
+%textEllipsisClear {
+    white-space: normal;
+    text-overflow: unset;
+    overflow: unset;
+}
+
+// 숨김처리
+.hidden,
+.sr_only,
+.sr-only {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    width: 0px;
+    height: 0px;
+    margin: -1px;
+    padding: 0;
+    word-break: keep-all;
+    white-space: nowrap;
+    color: transparent;
+    border: 0;
+    text-indent: -9999px;
+}
+
+
+// 그리드 작업
+.grid {
+    position: relative;
+    @extend %clearfix;
+    @include boxSizing(border-box);
+    .col {
+        position: relative;
+        float: left;
+        @include boxSizing(border-box);
+    }
+    .col-right {
+        position: relative;
+        float: right;
+        @include boxSizing(border-box);
+    }
+}
+
+// 테이블 작업
+.table {
+    display: table;
+    .table-cell {
+        display: table-cell;
+        height: 100%;
+        vertical-align: middle;
+    }
+}
+
+// 선택불가
+%disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+// slick plugins dots reset
+%slick-dots {
+    button {
+        position: absolute;
+        display: inline-block;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        width: 0px;
+        height: 0px;
+        margin: -1px;
+        padding: 0;
+        word-break: keep-all;
+        white-space: nowrap;
+        color: transparent;
+        border: 0;
+        text-indent: -9999px;
+    }
+}
+
+// slick plugins dots reset 2
+%slick-dots2 {
+    font-size: 0;
+    li { display: inline-block; }
+    button {
+        display: block;
+        width: 100%;
+        height: 100%;
+        font-size: 0;
+        color: transparent;
+        text-indent: -9999px;
+        border: 0;
+        background: none;
+    }
+}
+
+// slick plugins arrow reset
+%slick-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-indent: -9999px;
+    border: none;
+    background: none;
+    outline: none;
+    @include transform(rotate(45deg) translateY(-50%));
+}
+
+// slick plugins arrow reset 2
+%slick-arrow2 {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    color: transparent;
+    text-indent: -9999px;
+    border: none;
+    background: none;
+    outline: none;
+    @include translateY(-50%);
+}
+
+// 가변
+%variable {
+    &:only-child,
+    &:nth-child(1):nth-last-child(1) { width: 100%; }
+
+    &:nth-child(1):nth-last-child(2),
+    &:nth-child(2):nth-last-child(1) { width: 50%; }
+
+    &:nth-child(1):nth-last-child(3),
+    &:nth-child(2):nth-last-child(2),
+    &:nth-child(3):nth-last-child(1) { width: 33.333%;}
+
+    &:nth-child(1):nth-last-child(4),
+    &:nth-child(2):nth-last-child(3),
+    &:nth-child(3):nth-last-child(2),
+    &:nth-child(4):nth-last-child(1) { width: 25%; }
+
+    &:nth-child(1):nth-last-child(5),
+    &:nth-child(2):nth-last-child(4),
+    &:nth-child(3):nth-last-child(3),
+    &:nth-child(4):nth-last-child(2),
+    &:nth-child(5):nth-last-child(1) { width: 20%; }
+
+    &:nth-child(1):nth-last-child(6),
+    &:nth-child(2):nth-last-child(5),
+    &:nth-child(3):nth-last-child(4),
+    &:nth-child(4):nth-last-child(3),
+    &:nth-child(5):nth-last-child(2),
+    &:nth-child(6):nth-last-child(1) { width: 16.66%; }
+
+    &:nth-child(1):nth-last-child(7),
+    &:nth-child(2):nth-last-child(6),
+    &:nth-child(3):nth-last-child(5),
+    &:nth-child(4):nth-last-child(4),
+    &:nth-child(5):nth-last-child(3),
+    &:nth-child(6):nth-last-child(2),
+    &:nth-child(7):nth-last-child(1) { width: 14.28571%; }
+
+    &:nth-child(1):nth-last-child(8),
+    &:nth-child(2):nth-last-child(7),
+    &:nth-child(3):nth-last-child(6),
+    &:nth-child(4):nth-last-child(5),
+    &:nth-child(5):nth-last-child(4),
+    &:nth-child(6):nth-last-child(3),
+    &:nth-child(7):nth-last-child(2),
+    &:nth-child(8):nth-last-child(1) { width: 12.5%; }
+
+    &:nth-child(1):nth-last-child(9),
+    &:nth-child(2):nth-last-child(8),
+    &:nth-child(3):nth-last-child(7),
+    &:nth-child(4):nth-last-child(6),
+    &:nth-child(5):nth-last-child(5),
+    &:nth-child(6):nth-last-child(4),
+    &:nth-child(7):nth-last-child(3),
+    &:nth-child(8):nth-last-child(2),
+    &:nth-child(9):nth-last-child(1) { width: 11.11%; }
+
+    &:nth-child(1):nth-last-child(10),
+    &:nth-child(2):nth-last-child(9),
+    &:nth-child(3):nth-last-child(8),
+    &:nth-child(4):nth-last-child(7),
+    &:nth-child(5):nth-last-child(6),
+    &:nth-child(6):nth-last-child(5),
+    &:nth-child(7):nth-last-child(4),
+    &:nth-child(8):nth-last-child(3),
+    &:nth-child(9):nth-last-child(2),
+    &:nth-child(10):nth-last-child(1) { width: 10%; }
+}
+
+// animation
+.effect-bounce-diagonal {
+    @include animation(effectBounceDiagonal, .8s, $iteration: infinite){
+        0%, 100% { @include translateXY(0, 0); }
+        50% { @include translateXY(-10px, -10px); }
+    }
+}
+
+.effect-bounce-updown {
+    @include animation(effectBounceUpDown, .8s, $iteration: infinite){
+        0%, 100% { @include translateY(0); }
+        50% { @include translateY(-10px); }
+    }
+}
+
+.effect-extend {
+    @include animation(effectExtend, .8s, $iteration: infinite){
+        0%, 100% { @include scaleXY(1, 1); }
+        50% { @include scaleXY(1.1, 1.1); }
+    }
+}
+
+.effect-blink {
+    @include animation(effectBlink, 1s, $timing: step-start, $iteration: infinite){
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+}

@@ -1,0 +1,29 @@
+$font-spoqa: 'Spoqa Han Sans Neo', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Dotum', '돋움', 'Gulim', '굴림', '굴림체', Sans-Serif;
+$font-gmarket: 'Gmarket Sans', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Dotum', '돋움', 'Gulim', '굴림', '굴림체', Sans-Serif;
+$font-poppins: 'Poppins', 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Dotum', '돋움', 'Gulim', '굴림', '굴림체', Sans-Serif;
+$font-noto: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Dotum', '돋움', 'Gulim', '굴림', '굴림체', Sans-Serif;
+ 
+$min-mobile: 320;
+$max-mobile: 720;
+
+// basic color
+$color-0: #000;
+$color-1: #111;
+$color-2: #222;
+$color-3: #333;
+$color-4: #444;
+$color-5: #535353;
+$color-6: #666;
+$color-7: #777;
+$color-8: #888;
+$color-9: #999;
+
+// z-index
+// z-index: map-get($z-index, dim);
+$z-index: (
+    close: 300,
+    popup: 200,
+    dim: 100,
+    menu: 50,
+    banner: 10
+);

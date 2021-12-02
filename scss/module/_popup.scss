@@ -1,0 +1,310 @@
+.popup-dim {
+    display: none;
+    position: fixed;
+    top: 0; 
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 200;
+    display: none;
+    width: 100%;
+    max-width: 640px;
+    // letter-spacing: -1px;
+    @include translateX(-50%);
+    @include boxSizing(border-box);
+    * { font-family: $font-noto; }
+    .popup-close {
+        cursor: pointer;
+        span { @extend .sr-only; }
+    }
+    &.popup-intro {
+        position: fixed !important;
+        top: 50% !important;
+        height: 100vh;
+        @include translateXY(-50%, -50%);
+        @media screen and (max-height: 800px) {
+            min-height: 100vh;
+        }
+        @include breakpoint(desktop){
+            height: auto;
+        }
+        .popup-body {
+            height: 100vh;
+            background: #fff;
+            @include breakpoint(desktop){
+                height: auto;
+            }
+            .intro-people {
+                position: relative;
+                @include vw(height, 260px);
+                overflow: hidden;
+                text-align: right;
+                background: #f2f4f6;
+                @include boxSizing(border-box);
+                .thumb {
+                    height: 100%;
+                    img {
+                        max-width: none;
+                        width: auto;
+                        height: 100%;
+                    }
+                }
+                .people-info {
+                    position: absolute;
+                    @include vw(top, 40px);
+                    @include vw(left, 40px);
+                    text-align: left;
+                    .nickname {
+                        font-family: $font-poppins;
+                        @include vw(font-size, 60px);
+                        font-weight: bold;
+                        color: #4428d7;
+                    }
+                    .position {
+                        @include vw(font-size, 14px);
+                        color: #999;
+                    }
+                    .intro-title {
+                        display: block;
+                        @include vw(margin-top, 20px);
+                        @include vw(font-size, 24px);
+                        font-weight: bold;
+                        color: #202020;
+                    }
+                }
+            }
+            .intro-list {
+                @include vw(height, 540px);
+                height: calc(100vh - 36.11111vw);
+                @include vw(padding, 40px);
+                overflow-y: auto;
+                line-height: 1.6;
+                @include boxSizing(border-box);
+                // @media screen and (max-height: 800px) {
+                //     height: calc(100vh - 260px);
+                // }
+                .intro {
+                    @include vw(margin-top, 30px);
+                    &:first-child { margin-top: 0; }
+                }
+                .question {
+                    @include vw(font-size, 24px);
+                    font-weight: bold;
+                    @include breakpoint(desktop){
+                        font-size: 18px;
+                    }
+                }
+                .answer {
+                    @include vw(margin-top, 20px);
+                    @include vw(font-size, 20px);
+                    word-break: break-word;
+                    word-break: keep-all;
+                    @include breakpoint(desktop){
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+        .popup-close {
+            @include close(60px, 60px, 4px, #000);
+            position: absolute;
+            @include vw(top, 10px);
+            @include vw(right, 10px);
+        }
+    }
+    &.popup-share {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, .5);
+        @include breakpoint(desktop){
+            position: absolute;
+            z-index: 90;
+            width: 200px;
+            height: 90px;
+            left: auto;
+            background: none;
+            -webkit-transform: none;
+            transform: none;
+            border-radius: 5px;
+            @include boxShadow(0 0px 16px 4px rgba(0, 0, 0, .1));
+        }
+        .popup-body {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            @include vw(height, 380px);
+            background: #fff;
+            @include breakpoint(desktop){
+                position: static;
+                height: auto;
+                margin-top: 7px;
+            }
+            .share-title {
+                @include vw(padding, 60px 40px 0);
+                @include breakpoint(desktop){
+                    display: none;
+                }
+                .position {
+                    @include vw(font-size, 32px);
+                    color: #333;
+                }
+                .team {
+                    display: inline-block;
+                    @include vw(margin-top, 10px);
+                    @include vw(font-size, 24px);
+                    color: #999;
+                }
+                .category {
+                    display: inline-block;
+                    @include vw(margin-top, 10px);
+                    @include vw(font-size, 24px);
+                    color: #999;
+                }
+            }
+            .share-list {
+                li {
+                    &.share-kakao a {
+                        background-image: url('../img/mobile/icon_share_kakao.png');
+                        @include breakpoint(desktop){
+                            background-image: url('../img/pc/icon_share_kakao.png');
+                        }
+                    }
+                    &.share-copy a {
+                        background-image: url('../img/mobile/icon_share_copy.png');
+                        @include breakpoint(desktop){
+                            background-image: url('../img/pc/icon_share_copy.png');
+                        }
+                    }
+                    &.share-mail a {
+                        background-image: url('../img/mobile/icon_share_mail.png');
+                        @include breakpoint(desktop){
+                            background-image: url('../img/pc/icon_share_mail.png');
+                        }
+                    }
+                }
+                a {
+                    display: block;
+                    @include vw(padding, 30px 30px 30px 132px);
+                    @include vw(font-size, 30px);
+                    background-repeat: no-repeat;
+                    background-position: 5.556vw center;
+                    @include vw(background-size, 52px auto);
+                    @include breakpoint(desktop){
+                        padding: 11px 11px 11px 46px;
+                        font-size: 14px;
+                        background-position: 20px center;
+                        background-size: 16px auto;
+                        &:hover {
+                            color: #4428d7;
+                            background-color: #f5f5f5;
+                        }
+                    }
+                }
+            }
+        }
+        .popup-close {
+            @include close(40px, 40px, 2px, #000);
+            position: absolute;
+            @include vw(top, 30px);
+            @include vw(right, 20px);
+            @include breakpoint(desktop){
+                display: none;
+            }
+        }
+    }
+    &.popup-menu {
+        position: fixed;
+        top: 0 !important;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 90;
+        background: #262626;
+        @include translateX(0);
+        @include breakpoint(desktop){
+            left: auto;
+            width: 400px;
+        }
+        .popup-body { @include vw(padding, 80px 40px); }
+        .menu-title {
+            text-align: left;
+            @include vw(font-size, 40px);
+            font-weight: bold;
+            color: #fff;
+            @include breakpoint(desktop){
+                font-size: 20px;
+            }
+        }
+        .menu-list {
+            @include vw(margin-top, 80px);
+            li { @include vw(margin-top, 20px); }
+            a {
+                display: block;
+                &:hover {
+                    .thumb {
+                        position: relative;
+                        border-radius: 4px;
+                        overflow: hidden;
+                        &:after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            z-index: 1;
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            background: url('../img/pc/menu_cover.png') no-repeat 0 0;
+                            background-size: 100% auto;
+                        }
+                    }
+                    .title,
+                    .text { color: #4428d7; }
+                }
+            }
+            .thumb {
+                float: left;
+                @include vw(width, 90px);
+                @include vw(margin-right, 20px);
+                @include breakpoint(desktop){
+                    width: 45px;
+                }
+            }
+            .title {
+                @include vw(font-size, 28px);
+                color: #fff;
+                @include breakpoint(desktop){
+                    font-size: 14px;
+                }
+            }
+            .text {
+                @include vw(margin-top, 10px);
+                @include vw(font-size, 24px);
+                color: #666;
+                @include breakpoint(desktop){
+                    margin-top: 5px;
+                    font-size: 12px;
+                }
+            }
+        }
+        .popup-close {
+            @include close(40px, 40px, 2px, #fff);
+            position: absolute;
+            @include vw(top, 40px);
+            @include vw(right, 40px);
+        }
+    }
+}

@@ -1,0 +1,122 @@
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+html, body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select, option, img, div {
+    margin: 0;
+    padding: 0;
+}
+
+img, fieldset {
+    border: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    outline: none;
+    &:link,
+    &:hover,
+    &:focus,
+    &:active { outline: none; }
+}
+
+ul, ol {
+    list-style: none; 
+} 
+
+img {
+    vertical-align: top;
+    width: 100%;
+    max-width: 100%;
+    @include breakpoint(desktop){
+        width: auto;
+    }
+}
+
+input, select {
+    vertical-align: middle;
+}
+
+select,
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="submit"],
+input[type="rest"],
+input[type="button"],
+textarea {
+    border-radius: 0;
+    background-color: transparent;
+    // -webkit-appearance: none;
+    // -moz-appearance: none;
+    // appearance: none;
+    @include boxSizing(border-box);
+}
+
+em, address {
+    font-style: normal;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    empty-cells: show;
+    table-layout: fixed;
+}
+
+legend, caption {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+}
+
+h1, h2, h3, h4, h5, h6, strong, em {
+    font-weight: bold;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote {
+    &:before,
+    &:after {
+        content: '';
+        content: none;
+    }
+}
+
+q {
+    &:before,
+    &:after {
+        content: '';
+        content: none;
+    }
+}
+
+button {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-family: inherit;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+}

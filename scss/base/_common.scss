@@ -1,0 +1,76 @@
+.flo {
+    overflow-x: hidden;
+    font-family: $font-spoqa;
+    @include breakpoint(desktop){
+        min-width: 1200px;
+    }
+
+    .only-mobile {
+        display: block;
+        @include breakpoint(desktop){
+            display: none;
+        }
+    }
+
+    .only-pc {
+        display: none;
+        @include breakpoint(desktop){
+            display: block;
+        }
+    }
+
+    .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        @include breakpoint(desktop){
+            width: 1170px;
+            max-width: none;
+        }
+    }
+
+    .slick-slide {
+        & > div {
+            vertical-align: top;
+            line-height: 1;
+            font-size: 0;
+        }
+    }
+
+    .slick-arrow {
+        @extend %slick-arrow2;
+        &.slick-prev {
+            @include slideArrow(left, 60px, 60px, 1px, #333);
+            left: -60px;
+        }
+        &.slick-next {
+            @include slideArrow(right, 60px, 60px, 1px, #333);
+            right: -60px;
+        }
+    }
+
+    .slick-dots {
+        @extend %slick-dots2;
+        @include vw(margin-top, 120px);
+        @include breakpoint(desktop){
+            margin-top: 60px;
+        }
+        li {
+            @include vw(width, 30px);
+            @include vw(height, 30px);
+            @include vw(margin, 0 10px);
+            @include vw(border-radius, 90px);
+            background-color: #666;
+            @include breakpoint(desktop){
+                width: 15px;
+                height: 15px;
+                margin: 0 5px;
+            }
+            &.slick-active {
+                @include vw(width, 100px);
+                @include breakpoint(desktop){
+                    width: 50px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,2043 @@
+// gate
+.flo-gate {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    /* mobile viewport bug fix */
+    min-height: -webkit-fill-available;
+    background: #f2f4f6;
+    opacity: 1;
+    @include scaleXY(1, 1);
+    @include transformOrigin(center);
+    @include transition(transform, 5s);
+    &.hide {
+        z-index: -1;
+        display: none;
+        // opacity: 0;
+        @include scaleXY(5, 5);
+        animation-delay: 10s;
+        @include animation(hiding, 10s, $timing: ease-out) {
+            // 0% { opacity: 1; }
+            100% {
+                opacity: 0;
+            }
+        }
+    }
+    article {
+        @extend %flexCenter;
+        align-items: end;
+        height: 100vh;
+        @include boxSizing(border-box);
+        .gate-inner {
+            position: relative;
+            text-align: center;
+            @include vw(margin-top, 140px);
+            @media screen and (orientation: landscape) and (max-height: 640px) {
+                width: percent(400);
+            }
+            @media screen and (orientation: landscape) and (max-height: 480px) {
+                width: percent(350);
+            }
+            @media screen and (orientation: landscape) and (max-height: 1024px) {
+                width: percent(450);
+            }
+            @include breakpoint(desktop) {
+                @media screen and (max-height: 1024px) {
+                    width: 600px;
+                }
+                @media screen and (max-height: 768px) {
+                    width: 500px;
+                }
+            }
+            .video-box {
+                position: absolute;
+                top: percent(32, 940);
+                right: percent(40);
+                left: percent(40);
+                bottom: 0;
+                z-index: 1;
+                @include vw(border-radius, 50px 50px 0 0);
+                background: #fff;
+                video {
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    left: 0;
+                    width: 100%;
+                    @include translateY(-50%);
+                }
+            }
+            .action {
+                position: absolute;
+                @include vw(top, 220px);
+                @include vw(right, 100px);
+                @include vw(bottom, 120px);
+                @include vw(left, 100px);
+                a {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.flo {
+    position: relative;
+    height: 100vh;
+    // overflow: hidden;
+    text-align: center;
+    line-height: normal;
+    color: $color-0;
+    // @include vw(letter-spacing, -1px);
+    opacity: 0;
+    @include transition(all, 0.5s);
+    &.open {
+        height: auto;
+        overflow: visible;
+        opacity: 1;
+    }
+
+    [class^="flo-"] {
+        position: relative;
+        background-color: #fff;
+    }
+
+    .emoji { font-family: "Segoe UI Emoji"; font-weight: normal; }
+
+    .text-box {
+        @include vw(margin, 0 40px);
+        @include breakpoint(desktop) {
+            width: 1170px;
+            margin: 0 auto;
+        }
+        .thin-title {
+            @include vw(font-size, 48px);
+            font-weight: 300;
+            @include breakpoint(desktop) {
+                font-size: 60px;
+            }
+            strong {
+                font-weight: 700;
+            }
+        }
+        .big-title {
+            @include vw(font-size, 68px);
+            font-weight: 700;
+            @include breakpoint(desktop) {
+                font-size: 60px;
+            }
+        }
+        .small-title {
+            @include vw(font-size, 32px);
+            font-weight: 400;
+            color: #999;
+            @include breakpoint(desktop) {
+                font-size: 20px;
+            }
+        }
+    }
+
+    .flo-header {
+        @extend %clearfix;
+        background-color: #4428d7;
+        .header-logo {
+            @include vw(padding-top, 56px);
+            @include breakpoint(desktop) {
+                float: left;
+                padding-top: 60px;
+            }
+            a {
+                display: block;
+                @include vw(width, 96px);
+                @include vw(height, 40px);
+                margin: 0 auto;
+            }
+        }
+        .header-menu {
+            display: none;
+            @include breakpoint(desktop) {
+                display: block;
+                float: right;
+                padding-top: 68px;
+            }
+            .menu-list {
+                @include boxSizing(border-box);
+                @include transition(all, 0.3s);
+                a {
+                    text-align: left;
+                    line-height: 24px;
+                    @include vw(font-size, 20px);
+                    font-style: normal;
+                    font-weight: 400;
+                    letter-spacing: 0;
+                    color: #fff;
+                    @include breakpoint(desktop) {
+                        margin: 0 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .flo-footer {
+        background-color: #4428d7;
+        @include vw(padding-bottom, 100px);
+        .copy {
+            text-align: center;
+            line-height: 1.25;
+            @include vw(font-size, 14px);
+            font-weight: 300;
+            color: #c0c0c0;
+            letter-spacing: normal;
+        }
+    }
+
+    .flo-fixed {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        background: #fff;
+        @include transition(all, 0.3s);
+        @include translateY(100%);
+        &.show {
+            @include translateY(0);
+        }
+        @include breakpoint(desktop) {
+            background: #000;
+        }
+        .fixed-progress {
+            @include breakpoint(desktop) {
+                position: absolute;
+                top: 75px;
+                right: 0;
+                left: 0;
+                margin: 0 auto;
+                text-align: center;
+            }
+            .progress-bar {
+                @include vw(height, 4px);
+                background-color: #e8e8e8;
+                @include breakpoint(desktop) {
+                    display: inline-block;
+                    width: 400px;
+                    height: 5px;
+                    line-height: 1;
+                    background: #323232;
+                }
+                .progress {
+                    height: 100%;
+                    background-color: #6953df;
+                    @include breakpoint(desktop) {
+                        background-color: #4428d7;
+                    }
+                }
+            }
+            .progress-count {
+                display: none;
+                @include breakpoint(desktop) {
+                    display: inline-block;
+                    line-height: 1;
+                    font-size: 12px;
+                    color: #666;
+                }
+            }
+        }
+        .fixed-list {
+            @extend .grid;
+            @include vw(padding, 30px 0);
+            & > div {
+                @extend .col;
+            }
+        }
+        .fixed-title {
+            width: 50%;
+            @include vw(padding-left, 40px);
+            text-align: left;
+            @include breakpoint(desktop) {
+                width: 25%;
+                height: 60px;
+            }
+            .thumb {
+                display: none;
+                @include breakpoint(desktop) {
+                    display: block;
+                    float: left;
+                    padding-right: 20px;
+                }
+            }
+            .title {
+                // display: none;
+                @include vw(font-size, 28px);
+                @include breakpoint(desktop) {
+                    margin-top: 5px;
+                    font-size: 16px;
+                    color: #fff;
+                }
+            }
+            .text {
+                @include vw(margin-top, 4px);
+                @include vw(font-size, 20px);
+                color: #666;
+                @include breakpoint(desktop) {
+                    margin-top: 5px;
+                    font-size: 14px;
+                }
+            }
+        }
+        .fixed-control {
+            width: 30%;
+            @include breakpoint(desktop) {
+                width: 50%;
+            }
+            a {
+                display: inline-block;
+                @include vw(height, 54px);
+                @include vw(line-height, 54px);
+                @include vw(padding, 0 15px);
+                vertical-align: middle;
+                @include breakpoint(desktop) {
+                    height: 35px;
+                    line-height: 35px;
+                }
+                img {
+                    vertical-align: middle;
+                }
+            }
+            .control-prev {
+                @include vw(width, 28px);
+                @include breakpoint(desktop) {
+                    width: 13px;
+                }
+            }
+            .control-play {
+                @include vw(width, 40px);
+                @include breakpoint(desktop) {
+                    width: 26px;
+                }
+            }
+            .control-next {
+                @include vw(width, 28px);
+                @include breakpoint(desktop) {
+                    width: 13px;
+                }
+            }
+        }
+        .fixed-link {
+            width: 20%;
+            @include vw(padding-right, 40px);
+            @include breakpoint(desktop) {
+                width: 25%;
+                margin-top: 10px;
+                padding-right: 0;
+            }
+            a {
+                display: inline-block;
+                @include vw(height, 54px);
+                @include vw(line-height, 54px);
+                @include vw(padding, 0 15px);
+                vertical-align: middle;
+                @include breakpoint(desktop) {
+                    height: 40px;
+                    line-height: 40px;
+                }
+                img {
+                    vertical-align: middle;
+                }
+            }
+            .control-link {
+                display: none;
+                @include breakpoint(desktop) {
+                    display: inline-block;
+                    width: 150px;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 16px;
+                    color: #fff;
+                    border-radius: 40px;
+                    background-color: #4428d7;
+                }
+            }
+            .control-menu {
+                @include vw(width, 36px);
+                @include breakpoint(desktop) {
+                    width: 28px;
+                }
+            }
+        }
+    }
+
+    .flo-title {
+        @include vw(padding-top, 40px);
+        overflow: hidden;
+        background-color: #4428d7;
+        @include breakpoint(desktop) {
+            padding-top: 160px;
+        }
+        .wrap + .card-list {
+            @include vw(margin-top, 100px);
+        }
+        .text-box {
+            margin: 0 auto;
+            font-family: $font-gmarket;
+            color: #fff;
+            @include breakpoint(desktop) {
+                text-align: left;
+            }
+            .big-title {
+                line-height: 1.2;
+                @include vw(font-size, 84px);
+                @include breakpoint(desktop) {
+                    font-size: 80px;
+                }
+                strong {
+                    display: block;
+                    @include vw(height, 90px);
+                    overflow: hidden;
+                    @include breakpoint(desktop) {
+                        margin-left: -120px;
+                    }
+                }
+                img {
+                    @include vw(width, 600px);
+                }
+                // img {
+                //     @include vw(width, 79px);
+                //     @include vw(height, 52px);
+                //     @include vw(margin-right, 10px);
+                //     vertical-align: middle;
+                //     // @include animation(pointer, 3s, $iteration: infinite, $timing: cubic-bezier(0.18, 0.89, 0.32, 1.28)){
+                //     //     80% { @include translateX(0); }
+                //     //     100% { @include translateX(10px); }
+                //     // }
+                // }
+            }
+            .small-title {
+                @include vw(margin-top, 40px);
+                @include vw(font-size, 40px);
+                color: #fff;
+                @include breakpoint(desktop) {
+                    margin-top: 30px;
+                }
+            }
+            .name em {
+                color: #2bf2fe;
+                @include transition(all, 0.3s);
+            }
+        }
+
+        .card-list {
+            position: relative;
+            @include vw(margin-right, -50px);
+            @include vw(margin-left, -50px);
+            @include rotate(-10deg);
+            .slick-slide {
+                @include vw(width, 440px);
+                @include vw(height, 250px);
+                @include vw(margin, 10px);
+                & > div {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .card {
+                width: 100%;
+                height: 100%;
+                @include vw(padding, 40px);
+                text-align: left;
+                @include vw(border-radius, 10px);
+                @include boxShadow(0 20px 20px rgba(0, 0, 0, 0.2));
+                @include boxSizing(border-box);
+                background-color: #fff;
+                background-repeat: no-repeat;
+                background-position: right center;
+                @include vw(background-size, 160px);
+                &-1 {
+                    background-image: url("../img/mobile/icon_card01.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card01.png");
+                    }
+                }
+                &-2 {
+                    background-image: url("../img/mobile/icon_card02.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card02.png");
+                    }
+                }
+                &-3 {
+                    background-image: url("../img/mobile/icon_card03.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card03.png");
+                    }
+                }
+                &-4 {
+                    background-image: url("../img/mobile/icon_card04.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card04.png");
+                    }
+                }
+                &-5 {
+                    background-image: url("../img/mobile/icon_card05.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card05.png");
+                    }
+                }
+                &-6 {
+                    background-image: url("../img/mobile/icon_card06.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card06.png");
+                    }
+                }
+                &-7 {
+                    background-image: url("../img/mobile/icon_card07.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card07.png");
+                    }
+                }
+                &-8 {
+                    background-image: url("../img/mobile/icon_card08.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card08.png");
+                    }
+                }
+                &-9 {
+                    background-image: url("../img/mobile/icon_card09.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card09.png");
+                    }
+                }
+                &-10 {
+                    background-image: url("../img/mobile/icon_card10.png");
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_card10.png");
+                    }
+                }
+                span {
+                    display: block;
+                    text-align: left;
+                    @include vw(font-size, 16px);
+                    color: #872cf0;
+                }
+                strong {
+                    display: block;
+                    text-align: left;
+                    @include vw(margin-top, 20px);
+                    line-height: 1.4;
+                    @include vw(font-size, 34px);
+                    color: #4428d7;
+                }
+                em {
+                    display: inline-block;
+                    &:before {
+                        content: "'";
+                        display: inline-block;
+                    }
+                    &:after {
+                        content: "'";
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+
+    .flo-intro {
+        scroll-behavior: smooth;
+        @include vw(padding, 120px 0);
+        .text-list {
+            text-align: left;
+            @include vw(margin-left, 40px);
+            @include breakpoint(desktop) {
+                width: 1170px;
+                margin: 0 auto;
+            }
+            p {
+                @include vw(font-size, 68px);
+                font-weight: 700;
+                color: #d1d4d8;
+                // @include vw(letter-spacing, -4px);
+                @include breakpoint(desktop) {
+                    font-size: 80px;
+                }
+                &.on {
+                    color: #333;
+                }
+            }
+        }
+    }
+
+    .flo-benefit {
+        overflow: hidden;
+        background-color: #000;
+        .text-box {
+            position: absolute;
+            @include vw(top, 60px);
+            right: 0;
+            left: 0;
+            z-index: 2;
+            width: auto;
+            margin: 0;
+            text-align: center;
+            color: #fff;
+            @include breakpoint(desktop) {
+                top: 160px;
+            }
+            .thin-title {
+                @include vw(font-size, 48px);
+                @include breakpoint(desktop) {
+                    font-size: 60px;
+                }
+            }
+            .small-title {
+                @include vw(font-size, 22px);
+                @include breakpoint(desktop) {
+                    font-size: 14px;
+                }
+            }
+        }
+        img {
+            position: relative;
+            z-index: 4;
+        }
+        .benefit-list {
+            position: absolute;
+            top: 0;
+            @include vw(right, 0);
+            @include vw(left, -600px);
+            z-index: 1;
+            opacity: 0.5;
+            @include transform(rotate(-55deg) skew(-40deg));
+            @include boxShadow(0 50px 0 #1b1c9e);
+            @include breakpoint(desktop) {
+                left: -950px;
+                @include boxShadow(0 100px 0 #1b1c9e);
+            }
+            .benefit {
+                @include vw(padding, 20px);
+                font-family: $font-poppins;
+                @include vw(font-size, 80px);
+                font-weight: bold;
+                color: #858585;
+                white-space: nowrap;
+                background: #161785;
+            }
+            & + .benefit-list {
+                @include vw(top, -100px);
+                @include vw(right, -350px);
+                left: 0;
+                z-index: 0;
+                opacity: 0.3;
+                @include rotate(20deg);
+                @include boxShadow(0 -20px 0 #adadad);
+                .benefit {
+                    @include vw(font-size, 100px);
+                    color: #2324cd;
+                    background: #cdcdcd;
+                }
+                & + .benefit-list {
+                    @include vw(top, 900px);
+                    @include vw(right, -100px);
+                    @include vw(left, -100px);
+                    z-index: 3;
+                    opacity: 0.5;
+                    @include transform(rotate(-10deg) skew(10deg));
+                    @include boxShadow(0 100px 0 #828282);
+                    @include breakpoint(desktop) {
+                        top: 900px;
+                    }
+                    .benefit {
+                        @include vw(font-size, 150px);
+                        color: #282aee;
+                        background: #c3c3c3;
+                    }
+                }
+            }
+        }
+    }
+
+    .flo-now {
+        @include vw(padding-top, 160px);
+        &.active {
+            .level-list .img-box {
+                @include scaleXY(1, 1);
+            }
+            .level-list .number-box {
+                .bar-list .bar {
+                    @include scaleY(1);
+                }
+                .number {
+                    @include translateY(0);
+                    opacity: 1;
+                }
+                .firework {
+                    opacity: 1;
+                    @include scaleXY(1, 1);
+                }
+            }
+        }
+        .text-box {
+            text-align: left;
+            .small-title {
+                @include vw(margin-top, 40px);
+                font-weight: 400;
+                @include breakpoint(desktop) {
+                    margin-top: 20px;
+                }
+            }
+        }
+
+        .level-list {
+            @include vw(margin, 0 40px);
+            @include breakpoint(desktop) {
+                width: 1170px;
+                margin: 0 auto;
+            }
+            .level {
+                position: relative;
+                display: table;
+                width: 100%;
+                @include vw(height, 800px);
+                @include vw(margin-top, 40px);
+                @include vw(padding, 80px);
+                @include vw(border-radius, 30px);
+                background-color: #f2f4f6;
+                background-repeat: no-repeat;
+                background-position: center 90%;
+                @include vw(background-size, 240px);
+                @include boxSizing(border-box);
+                @include breakpoint(desktop) {
+                    height: 300px;
+                    padding: 80px 100px;
+                    background-position: 90% center;
+                    background-size: auto;
+                }
+                // &-2 {
+                //     background-image: url('../img/mobile/icon_level02.png');
+                //     @include breakpoint(desktop){
+                //         background-image: url('../img/pc/icon_level02.png');
+                //     }
+                // }
+                &-3 {
+                    background-image: url("../img/mobile/icon_level03.png");
+                    @include vw(background-position, 458px 478px);
+                    @include vw(background-size, 112px);
+                    @include breakpoint(desktop) {
+                        background-image: url("../img/pc/icon_level03.png");
+                        background-position: 972px 40px;
+                    }
+                }
+                &-4 {
+                    @include vw(height, 960px);
+                    @include breakpoint(desktop) {
+                        height: 300px;
+                    }
+                    // background-image: url('../img/mobile/icon_level04.png');
+                    // @include breakpoint(desktop){
+                    //     background-image: url('../img/pc/icon_level04.png');
+                    // }
+                    .text-box {
+                        .small-title {
+                            @include vw(font-size, 48px);
+                            @include breakpoint(desktop) {
+                                font-size: 34px;
+                            }
+                        }
+                        .thin-title {
+                            @include vw(font-size, 40px);
+                            @include breakpoint(desktop) {
+                                font-size: 24px;
+                            }
+                        }
+                    }
+                }
+            }
+            .text-box {
+                display: table-cell;
+                vertical-align: top;
+                margin: 0;
+                @include breakpoint(desktop) {
+                    width: auto;
+                    vertical-align: middle;
+                }
+                .small-title {
+                    margin-top: 0;
+                    @include vw(font-size, 40px);
+                    font-weight: bold;
+                    color: #333;
+                    @include breakpoint(desktop) {
+                        font-size: 24px;
+                    }
+                }
+                .thin-title {
+                    @include vw(margin-top, 20px);
+                    font-weight: 700;
+                    @include breakpoint(desktop) {
+                        font-size: 34px;
+                    }
+                }
+            }
+            .count-box {
+                position: absolute;
+                @include vw(top, 528px);
+                @include vw(left, 80px);
+                @include vw(font-size, 60px);
+                font-weight: bold;
+                color: #4428d7;
+                @include breakpoint(desktop) {
+                    top: 110px;
+                    right: 100px;
+                    left: auto;
+                    font-size: 30px;
+                }
+                strong {
+                    @include vw(font-size, 160px);
+                    @include breakpoint(desktop) {
+                        font-size: 100px;
+                    }
+                }
+            }
+            .img-box {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                @include scaleXY(0, 0);
+                @include transformOrigin(left bottom);
+                @include transitionDelay(1.5s);
+                @include transition(transform, 0.7s);
+                @include breakpoint(desktop) {
+                    left: auto;
+                }
+            }
+            .number-box {
+                position: absolute;
+                @include vw(top, 360px);
+                @include vw(right, 130px);
+                @include vw(left, 130px);
+                @include breakpoint(desktop) {
+                    top: 35px;
+                    right: 100px;
+                    left: auto;
+                }
+                .bar-list {
+                    @include vw(height, 120px);
+                    font-size: 0;
+                    overflow: hidden;
+                    .bar {
+                        position: relative;
+                        bottom: 0;
+                        display: inline-block;
+                        @include vw(width, 120px);
+                        @include vw(margin, 0 2px);
+                        overflow: hidden;
+                        vertical-align: bottom;
+                        @include linear-gradient(0deg, rgba(224, 224, 243, 0.3) 0, #e0e0f3 97.48%);
+                        @include transition(transform, 0.9s, cubic-bezier(0, 0.35, 0.32, 1.05));
+                        @include scaleY(0);
+                        @include transformOrigin(bottom);
+                        @include breakpoint(desktop) {
+                            width: 77px;
+                        }
+                        &-1 {
+                            @include vw(height, 80px);
+                            @include transitionDelay(0.4s);
+                            @include breakpoint(desktop) {
+                                height: 56px;
+                            }
+                        }
+                        &-2 {
+                            @include vw(height, 120px);
+                            @include transitionDelay(0.5s);
+                            @include breakpoint(desktop) {
+                                height: 81px;
+                            }
+                        }
+                        &-3 {
+                            @include vw(height, 60px);
+                            @include transitionDelay(0.3s);
+                            @include breakpoint(desktop) {
+                                height: 38px;
+                            }
+                        }
+                    }
+                }
+                .number {
+                    @include vw(margin-top, -60px);
+                    line-height: 1;
+                    @include vw(font-size, 160px);
+                    font-weight: bold;
+                    color: #4428d7;
+                    opacity: 0;
+                    @include translateY(10px);
+                    @include transition(all, 1s, cubic-bezier(0.18, 0.89, 0.32, 1.28));
+                    @include transitionDelay(1s);
+                    @include breakpoint(desktop) {
+                        font-size: 100px;
+                    }
+                }
+                .firework {
+                    @include vw(width, 226px);
+                    margin: 0 auto;
+                    opacity: 0;
+                    @include scaleXY(0, 0);
+                    @include transition(all, 0.2s, cubic-bezier(0.06, 0.83, 0.3, 1.15));
+                    @include transitionDelay(1.5s);
+                    @include breakpoint(desktop) {
+                        width: 114px;
+                    }
+                }
+            }
+            .circle-box {
+                position: absolute;
+                @include vw(top, 560px);
+                @include vw(right, 200px);
+                @include vw(left, 200px);
+                @include breakpoint(desktop) {
+                    top: 50px;
+                    right: 100px;
+                    left: auto;
+                }
+                p {
+                    position: absolute;
+                    z-index: 1;
+                    @include boxSizing(border-box);
+                    @include transformOrigin(center);
+                    @include transition(all, 0.3s);
+                    &.line-1 {
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        @include animation(rotate1, 5s, $iteration: infinite) {
+                            0% {
+                                @include rotate(0deg);
+                            }
+                            100% {
+                                @include rotate(360deg);
+                            }
+                        }
+                    }
+                    &.line-2 {
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        @include animation(rotate2, 8s, $iteration: infinite) {
+                            0% {
+                                @include rotate(360deg);
+                            }
+                            100% {
+                                @include rotate(0deg);
+                            }
+                        }
+                    }
+                    &.line-3 {
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        @include animation(rotate3, 10s, $iteration: infinite) {
+                            0% {
+                                @include rotate(0deg);
+                            }
+                            100% {
+                                @include rotate(360deg);
+                            }
+                        }
+                    }
+                    &.circle-fill-1 {
+                        @include vw(top, 30px);
+                        @include vw(left, 80px);
+                        @include vw(width, 24px);
+                        @include vw(height, 24px);
+                        background-color: #4428d7;
+                        border-radius: 50%;
+                        @include breakpoint(desktop) {
+                            left: 60px;
+                            width: 16px;
+                            height: 16px;
+                        }
+                        @include animation(fill1, 3s, $iteration: infinite) {
+                            0% {
+                                @include scaleXY(1, 1);
+                            }
+                            50% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                            100% {
+                                @include scaleXY(1, 1);
+                            }
+                        }
+                    }
+                    &.circle-fill-2 {
+                        @include vw(top, 150px);
+                        @include vw(left, 48px);
+                        @include vw(width, 20px);
+                        @include vw(height, 20px);
+                        background-color: #4428d7;
+                        border-radius: 50%;
+                        @include breakpoint(desktop) {
+                            top: 107px;
+                            left: 35px;
+                            width: 14px;
+                            height: 14px;
+                        }
+                        @include animation(fill2, 3s, $iteration: infinite) {
+                            0% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                            50% {
+                                @include scaleXY(1, 1);
+                            }
+                            100% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                        }
+                    }
+                    &.circle-fill-3 {
+                        @include vw(top, 160px);
+                        @include vw(left, 184px);
+                        @include vw(width, 18px);
+                        @include vw(height, 18px);
+                        background-color: #4428d7;
+                        border-radius: 50%;
+                        @include breakpoint(desktop) {
+                            top: 116px;
+                            left: 153px;
+                            width: 14px;
+                            height: 14px;
+                        }
+                        @include animation(fill3, 3s, $iteration: infinite) {
+                            0% {
+                                @include scaleXY(1, 1);
+                            }
+                            50% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                            100% {
+                                @include scaleXY(1, 1);
+                            }
+                        }
+                    }
+                    &.circle-1 {
+                        @include vw(top, 84px);
+                        @include vw(left, 172px);
+                        @include vw(width, 18px);
+                        @include vw(height, 18px);
+                        border: 2px solid #4428d7;
+                        border-radius: 50%;
+                        background-color: #d9d9f0;
+                        @include breakpoint(desktop) {
+                            top: 60px;
+                            left: 129px;
+                            width: 14px;
+                            height: 14px;
+                        }
+                        @include animation(circle1, 3s, $iteration: infinite) {
+                            0% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                            50% {
+                                @include scaleXY(1, 1);
+                            }
+                            100% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                        }
+                    }
+                    &.circle-2 {
+                        @include vw(top, 110px);
+                        @include vw(left, 64px);
+                        @include vw(width, 14px);
+                        @include vw(height, 14px);
+                        border: 2px solid #4428d7;
+                        border-radius: 50%;
+                        background-color: #d9d9f0;
+                        @include breakpoint(desktop) {
+                            top: 79px;
+                            left: 56px;
+                            width: 10px;
+                            height: 10px;
+                        }
+                        @include animation(circle2, 3s, $iteration: infinite) {
+                            0% {
+                                @include scaleXY(1, 1);
+                            }
+                            50% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                            100% {
+                                @include scaleXY(1, 1);
+                            }
+                        }
+                    }
+                    &.circle-3 {
+                        @include vw(top, 155px);
+                        @include vw(left, 143px);
+                        @include vw(width, 14px);
+                        @include vw(height, 14px);
+                        border: 2px solid #4428d7;
+                        border-radius: 50%;
+                        background-color: #d9d9f0;
+                        @include breakpoint(desktop) {
+                            top: 126px;
+                            left: 115px;
+                            width: 10px;
+                            height: 10px;
+                        }
+                        @include animation(circle3, 3s, $iteration: infinite) {
+                            0% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                            50% {
+                                @include scaleXY(1, 1);
+                            }
+                            100% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                        }
+                    }
+                    &.circle-4 {
+                        @include vw(top, 193px);
+                        @include vw(left, 80px);
+                        @include vw(width, 26px);
+                        @include vw(height, 26px);
+                        border: 2px solid #4428d7;
+                        border-radius: 50%;
+                        background-color: #d9d9f0;
+                        @include breakpoint(desktop) {
+                            top: 153px;
+                            left: 53px;
+                            width: 18px;
+                            height: 18px;
+                        }
+                        @include animation(circle4, 3s, $iteration: infinite) {
+                            0% {
+                                @include scaleXY(1, 1);
+                            }
+                            50% {
+                                @include scaleXY(0.9, 0.9);
+                            }
+                            100% {
+                                @include scaleXY(1, 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .flo-people {
+        @include vw(padding, 160px 0 100px);
+        .wrap {
+            width: 100%;
+        }
+        .text-box {
+            text-align: left;
+            .big-title {
+                @include vw(letter-spacing, -3px);
+            }
+            .small-title {
+                @include vw(margin-top, 20px);
+            }
+        }
+        .people-list {
+            @include vw(margin-top, 60px);
+            @include vw(margin-left, 40px);
+            @include breakpoint(desktop) {
+                margin-left: 0;
+            }
+            .slick-slide {
+                @include vw(margin, 0 15px);
+            }
+            .people {
+                position: relative;
+                display: inline-block;
+                width: 62.222vw !important;
+                // @include vw(width, 448px);
+                @include vw(height, 672px);
+                overflow: hidden;
+                text-align: left;
+                @include vw(border-radius, 30px);
+                background: #d1d4d8;
+                @include breakpoint(desktop) {
+                    width: 320px !important;
+                    height: 480px;
+                }
+                .thumb {
+                    @include vw(margin-top, 100px);
+                    @include vw(margin-left, 40px);
+                    img {
+                        width: 100%;
+                    }
+                }
+                .info-box {
+                    position: absolute;
+                    @include vw(top, 60px);
+                    @include vw(left, 40px);
+                    .title {
+                        line-height: 1.5;
+                        @include vw(font-size, 34px);
+                        font-weight: bold;
+                        color: #202020;
+                        @include breakpoint(desktop) {
+                            font-size: 24px;
+                        }
+                    }
+                    .info {
+                        @include vw(margin-top, 20px);
+                        @include vw(font-size, 20px);
+                        font-weight: normal;
+                        color: #999;
+                        @include breakpoint(desktop) {
+                            font-size: 14px;
+                        }
+                        strong {
+                            @include vw(font-size, 25px);
+                            font-weight: bold;
+                            @include breakpoint(desktop) {
+                                font-size: 18px;
+                            }
+                        }
+                    }
+                }
+                &.people-9 {
+                    .title {
+                        @include vw(font-size, 48px);
+                        @include breakpoint(desktop) {
+                            font-size: 34px;
+                        }
+                    }
+                    .text {
+                        @include vw(margin-top, 212px);
+                        @include vw(padding, 40px 100px);
+                        text-align: center;
+                        @include vw(font-size, 28px);
+                        font-weight: bold;
+                        color: #fff;
+                        @include vw(border-radius, 90px);
+                        background: #333;
+                        @include breakpoint(desktop) {
+                            font-size: 20px;
+                            margin-top: 152px;
+                            padding: 20px 50px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .flo-review {
+        @include vw(padding, 100px 0);
+        background-color: #f2f4f6;
+        .text-box {
+            .thin-title {
+                line-height: 1.5;
+                font-weight: bold;
+                span {
+                    @include vw(font-size, 34px);
+                }
+            }
+        }
+        .review-list {
+            @include vw(margin-top, 40px);
+            .messages {
+                @extend %clearfix;
+                position: relative;
+                @include boxSizing(border-box);
+            }
+            .message {
+                position: relative;
+                clear: both;
+                @include vw(min-width, 160px);
+                @include vw(max-width, 680px);
+                @include vw(margin-top, 40px);
+                line-height: 1.4;
+                @include vw(font-size, 26px);
+                @include boxSizing(border-box);
+                @include animation(slideTo, 0.15s) {
+                    0% {
+                        margin-bottom: -25px;
+                    }
+                    100% {
+                        margin-bottom: 0;
+                    }
+                }
+                @include breakpoint(desktop) {
+                    font-size: 16px;
+                }
+                &:first-child {
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        display: block;
+                        @include vw(width, 80px);
+                        @include vw(height, 80px);
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: cover;
+                    }
+                }
+                &.messenger-1:first-child:before {
+                    background-image: url("../img/mobile/review01.png");
+                }
+                &.messenger-2:first-child:before {
+                    background-image: url("../img/mobile/review02.png");
+                }
+                &.messenger-3:first-child:before {
+                    background-image: url("../img/mobile/review03.png");
+                }
+                &.messenger-4:first-child:before {
+                    background-image: url("../img/mobile/review04.png");
+                }
+                &.messenger-5:first-child:before {
+                    background-image: url("../img/mobile/review05.png");
+                }
+                &.messenger-6:first-child:before {
+                    background-image: url("../img/mobile/review06.png");
+                }
+                &.messenger-7:first-child:before {
+                    background-image: url("../img/mobile/review07.png");
+                }
+                &.messenger-8:first-child:before {
+                    background-image: url("../img/mobile/review08.png");
+                }
+                .messenger {
+                    text-align: right;
+                    @include vw(font-size, 26px);
+                    font-weight: bold;
+                    @include breakpoint(desktop) {
+                        font-size: 16px;
+                    }
+                    & + .holder {
+                        @include vw(margin-top, 20px);
+                    }
+                }
+                .holder {
+                    position: relative;
+                    @include vw(padding, 20px 40px);
+                    text-align: left;
+                    @include vw(border-radius, 60px);
+                    @include boxSizing(border-box);
+                    @include breakpoint(desktop) {
+                        border-radius: 30px;
+                    }
+                    & + .holder {
+                        @include vw(margin-top, 20px);
+                        @include breakpoint(desktop) {
+                            margin-top: 15px;
+                        }
+                    }
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        @include vw(bottom, 8px);
+                        display: block;
+                        @include vw(width, 42px);
+                        @include vw(height, 50px);
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: cover;
+                    }
+                }
+                &.ready {
+                    @include transformOrigin(0 0);
+                    @include animation(bounceIn, 0.2s) {
+                        0% {
+                            @include scaleXY(0.75, 0.75);
+                        }
+                        100% {
+                            @include scaleXY(1, 1);
+                        }
+                    }
+                }
+                &.to {
+                    float: left;
+                    @include vw(margin-top, 80px);
+                    @include vw(padding-left, 140px);
+                    &:first-child:before {
+                        @include vw(left, 40px);
+                        background-image: url("../img/mobile/question.png");
+                    }
+                    .holder {
+                        color: #fff;
+                        background-color: #4428d7;
+                        &:before {
+                            @include vw(left, -10px);
+                            background-image: url("../img/mobile/bg_message_to.png");
+                        }
+                    }
+                }
+                &.from {
+                    float: right;
+                    @include vw(padding-right, 140px);
+                    color: #333;
+                    &:first-child:before {
+                        @include vw(right, 40px);
+                    }
+                    .holder {
+                        background-color: #fff;
+                        &:before {
+                            @include vw(right, -10px);
+                            background-image: url("../img/mobile/bg_message_from.png");
+                        }
+                    }
+                }
+                &.typing {
+                    .loader {
+                        text-align: center;
+                        .dot {
+                            display: inline-block;
+                            @include vw(width, 20px);
+                            @include vw(height, 20px);
+                            border-radius: 50%;
+                            @include animation(typing, 2s, $iteration: infinite) {
+                                0% {
+                                    opacity: 0;
+                                    @include scaleXY(0, 0);
+                                }
+                                50% {
+                                    opacity: 1;
+                                    @include scaleXY(1, 1);
+                                }
+                                100% {
+                                    opacity: 0;
+                                    @include scaleXY(0, 0);
+                                }
+                            }
+                            @include breakpoint(desktop) {
+                                width: 10px;
+                                height: 10px;
+                            }
+                            &.dot-1 {
+                                background-color: #d1d4d8;
+                            }
+                            &.dot-2 {
+                                @include animationDelay(0.1s);
+                                background-color: rgba(209, 212, 216, 0.7);
+                            }
+                            &.dot-3 {
+                                @include animationDelay(0.4s);
+                                background-color: rgba(209, 212, 216, 0.5);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .flo-band {
+        @include vw(padding, 160px 0);
+        text-align: center;
+        background-color: #333;
+        @include breakpoint(desktop) {
+            padding: 120px 0;
+        }
+        .text-box {
+            color: #fff;
+            .small-title {
+                line-height: 1.4;
+                @include vw(font-size, 40px);
+                font-weight: bold;
+                color: #fff;
+            }
+            .big-title {
+                @include vw(margin-top, 40px);
+                & + .small-title {
+                    @include vw(margin-top, 40px);
+                    @include vw(font-size, 38px);
+                    font-weight: 400;
+                    color: #999;
+                    @include breakpoint(desktop) {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .flo-recruit {
+        @include vw(padding, 100px 0);
+        .text-box {
+            text-align: left;
+            color: #4428d7;
+            .small-title {
+                @include vw(font-size, 30px);
+                font-weight: bold;
+                color: #4428d7;
+            }
+            .big-title {
+                font-family: $font-poppins;
+                @include vw(font-size, 80px);
+                font-weight: bold;
+                & + .small-title {
+                    @include vw(margin-top, 40px);
+                    @include vw(font-size, 38px);
+                    font-weight: 400;
+                    color: #999;
+                    @include breakpoint(desktop) {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+
+        .recruit-wrap {
+            @include vw(margin-top, 30px);
+            @include breakpoint(desktop) {
+                width: 1170px;
+                margin: 60px auto 0;
+            }
+            .recruit-tab {
+                overflow-x: auto;
+                white-space: nowrap;
+                text-align: left;
+                font-size: 0;
+                @include vw(padding, 0 40px);
+                @include breakpoint(desktop) {
+                    padding: 0;
+                }
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+                .tab {
+                    display: inline-block;
+                    @include vw(margin, 0 20px);
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                    @include breakpoint(desktop) {
+                        margin: 0 5px;
+                    }
+                    &.on a {
+                        color: #4428d7;
+                        border-bottom-color: #4428d7;
+                        @include breakpoint(desktop) {
+                            color: #fff;
+                            border-bottom-width: 1px;
+                            border-color: #4428d7;
+                            background-color: #4428d7;
+                        }
+                    }
+                    a {
+                        display: block;
+                        @include vw(padding, 10px 0);
+                        font-family: $font-poppins;
+                        @include vw(font-size, 30px);
+                        font-weight: 400;
+                        @include vw(border-bottom-width, 2px);
+                        border-bottom-style: solid;
+                        border-bottom-color: #fff;
+                        cursor: pointer;
+                        @include breakpoint(desktop) {
+                            padding: 6px 20px;
+                            font-size: 16px;
+                            border-radius: 30px;
+                            border: 1px solid #ddd;
+                        }
+                    }
+                }
+                // .tab {
+                //     display: inline-block;
+                //     @include vw(margin, 0 20px);
+                //     @include breakpoint(desktop){
+                //         margin: 0 5px;
+                //     }
+                //     input {
+                //         @extend .sr-only;
+                //         &:checked + label {
+                //             color: #4428d7;
+                //             border-bottom-color: #4428d7;
+                //             @include breakpoint(desktop){
+                //                 color: #fff;
+                //                 border-bottom-width: 1px;
+                //                 border-color: #4428d7;
+                //                 background-color: #4428d7;
+                //             }
+                //         }
+                //     }
+                //     label {
+                //         display: block;
+                //         @include vw(padding, 10px 0);
+                //         font-family: $font-poppins;
+                //         @include vw(font-size, 40px);
+                //         font-weight: 400;
+                //         @include vw(border-bottom-width, 2px);
+                //         border-bottom-style: solid;
+                //         border-bottom-color: #fff;
+                //         cursor: pointer;
+                //         @include breakpoint(desktop){
+                //             padding: 6px 20px;
+                //             font-size: 16px;
+                //             border-radius: 30px;
+                //             border: 1px solid #ddd;
+                //         }
+                //     }
+                // }
+            }
+
+            .recruit-table {
+                @include vw(padding-top, 20px);
+                border-top: 1px solid #f3f3f3;
+                @include breakpoint(desktop) {
+                    margin-top: 40px;
+                    padding-top: 0;
+                    border-top: 0;
+                }
+                .recruit-list {
+                    @extend %clearfix;
+                    display: table;
+                    width: 100%;
+                    @include vw(padding, 10px 0);
+                    font-size: 0;
+                    @include breakpoint(desktop) {
+                        border-top: 1px solid #f3f3f3;
+                    }
+                    a {
+                        float: left;
+                        display: table;
+                        width: percent(332, 375);
+                        @include vw(height, 60px);
+                        &:last-child {
+                            width: percent(43, 375);
+                        }
+                        @include boxSizing(border-box);
+                        @include breakpoint(desktop) {
+                            width: 90%;
+                            height: 40px;
+                            &:last-child {
+                                width: 10%;
+                            }
+                        }
+                    }
+                    .item {
+                        // display: inline-block;
+                        // vertical-align: top;
+                        height: 100%;
+                        text-align: left;
+                        display: table-cell;
+                        vertical-align: middle;
+                        @include boxSizing(border-box);
+                        @include breakpoint(desktop) {
+                            display: table-cell;
+                            vertical-align: middle;
+                        }
+                        &.detail,
+                        &.more {
+                            width: 10%;
+                            text-align: center;
+                        }
+                    }
+                    .btn-more {
+                        z-index: 1;
+                    }
+                }
+                .recruit-head {
+                    display: none;
+                    @include breakpoint(desktop) {
+                        display: block;
+                        .recruit-list {
+                            padding: 10px 0;
+                            .item {
+                                height: auto;
+                                font-size: 14px;
+                                color: #999;
+                                &.num {
+                                    width: 10%;
+                                    padding: 0;
+                                    text-align: center;
+                                }
+                                &.title {
+                                    width: 70%;
+                                    font-size: 0;
+                                    p {
+                                        display: inline-block;
+                                        font-size: 14px;
+                                        &.position {
+                                            width: 85%;
+                                        }
+                                        &.category {
+                                            width: 15%;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .bundle-all {
+                    .bundle {
+                        display: none;
+                    }
+                    &.on {
+                        .bundle {
+                            display: block;
+                        }
+                    }
+                }
+                .recruit-body {
+                    .bundle {
+                        display: none;
+                        &.on {
+                            display: block;
+                        }
+                    }
+                    .recruit-bundle {
+                        &.unfold .recruit-detail {
+                            display: block;
+                        }
+                        .recruit-detail {
+                            display: none;
+                        }
+                    }
+                    .recruit-list {
+                        cursor: pointer;
+                        .item {
+                            @include vw(font-size, 28px);
+                            @include breakpoint(desktop) {
+                                font-size: 18px;
+                            }
+                            &.num {
+                                position: relative;
+                                // width: 17%;
+                                @include vw(width, 126px);
+                                @include vw(padding-left, 90px);
+                                vertical-align: top;
+                                text-align: center;
+                                font-family: $font-poppins;
+                                background: url("../img/mobile/icon_recruit.png") no-repeat left top;
+                                @include vw(background-position-x, 28px);
+                                // @include vw(background-size, 60px);
+                                background-size: auto 100%;
+                                @include breakpoint(desktop) {
+                                    display: table-cell;
+                                    width: 10%;
+                                    padding: 0;
+                                    vertical-align: middle;
+                                    text-align: center;
+                                    font-size: 16px;
+                                    background: none;
+                                }
+                            }
+                            &.title {
+                                // width: 73%;
+                                @include vw(width, 460px);
+                                @include breakpoint(desktop) {
+                                    width: 80%;
+                                    padding-left: 50px;
+                                    background: url("../img/pc/icon_recruit.png") no-repeat left top;
+                                    background-size: auto 100%;
+                                }
+                                .position {
+                                    line-height: 1.1;
+                                    @include breakpoint(desktop) {
+                                        float: left;
+                                        width: 83%;
+                                        font-size: 16px;
+                                    }
+                                }
+                                .team {
+                                    display: inline-block;
+                                    @include vw(font-size, 24px);
+                                    color: #999;
+                                    @include breakpoint(desktop) {
+                                        float: left;
+                                        width: 83%;
+                                        margin-top: 5px;
+                                        font-size: 14px;
+                                    }
+                                }
+                                .category {
+                                    // display: inline-block;
+                                    @include vw(font-size, 20px);
+                                    color: #999;
+                                    @include breakpoint(desktop) {
+                                        float: right;
+                                        width: 17%;
+                                        margin-top: -4px;
+                                        font-size: 16px;
+                                        color: #333;
+                                    }
+                                    // &:before {
+                                    //     content: ' / ';
+                                    //     @include breakpoint(desktop){
+                                    //         content: '';
+                                    //     }
+                                    // }
+                                }
+                            }
+                            &.detail {
+                                @include vw(width, 12px);
+                                line-height: 1;
+                                font-size: 0;
+                                @include breakpoint(desktop) {
+                                    width: 12px;
+                                }
+                                img {
+                                    vertical-align: middle;
+                                }
+                            }
+                            &.more {
+                                line-height: 1;
+                                font-size: 0;
+                                img {
+                                    @include vw(width, 6px);
+                                    vertical-align: middle;
+                                    @include breakpoint(desktop) {
+                                        width: 3px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .recruit-detail {
+                    @include vw(padding, 20px 40px 40px);
+                    text-align: left;
+                    line-height: 1.8;
+                    @include vw(font-size, 32px);
+                    @include breakpoint(desktop) {
+                        padding: 40px 126px;
+                        font-size: 16px;
+                    }
+                    div {
+                        @include vw(margin-top, 40px);
+                        &:first-child {
+                            margin-top: 0;
+                        }
+                        @include breakpoint(desktop) {
+                            margin-top: 20px;
+                        }
+                    }
+                    ul {
+                        li {
+                            position: relative;
+                            padding-left: 10px;
+                            &:before {
+                                content: "•";
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                            }
+                        }
+                    }
+                    ol {
+                        margin: 0;
+                        li {
+                            list-style: decimal;
+                            margin-left: 15px;
+                        }
+                        ul li {
+                            list-style: none;
+                            margin-left: 0;
+                        }
+                    }
+                    .detail-action {
+                        @include vw(margin, 40px 0 80px);
+                        text-align: center;
+                        p {
+                            @include vw(padding, 20px);
+                            @include vw(font-size, 30px);
+                            font-weight: bold;
+                            color: #333;
+                            @include vw(border-width, 3px);
+                            border-style: solid;
+                            border-color: #333;
+                        }
+                        a {
+                            display: none;
+                            @include breakpoint(desktop) {
+                                display: inline-block;
+                                width: 240px;
+                                padding: 12px 0;
+                                text-align: center;
+                                font-size: 20px;
+                                font-weight: bold;
+                                color: #fff;
+                                @include vw(border-radius, 90px);
+                                background-color: #333;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .bundle-tab {
+            display: none;
+            &.on {
+                display: block;
+            }
+        }
+        .bundle-paging {
+            @include vw(margin-top, 40px);
+            font-size: 0;
+            li {
+                display: inline-block;
+                @include vw(margin, 0 5px);
+                a {
+                    display: block;
+                    @include vw(width, 30px);
+                    @include vw(height, 30px);
+                    @include vw(line-height, 30px);
+                    @include vw(font-size, 16px);
+                    // @include vw(border-radius, 5px);
+                }
+                &.on {
+                    a {
+                        // color: #fff;
+                        font-weight: bold;
+                        color: #4428d7;
+                    }
+                }
+            }
+        }
+    }
+
+    .flo-welfare {
+        @include vw(padding, 120px 0);
+        background-color: #f2f4f6;
+        @include breakpoint(desktop) {
+            padding: 160px 0;
+        }
+        .wrap {
+            @extend %clearfix;
+            @include breakpoint(desktop) {
+                width: 1170px;
+                margin: 0 auto;
+            }
+        }
+        .text-box {
+            text-align: left;
+            @include breakpoint(desktop) {
+                float: left;
+                width: auto;
+                margin-top: 405px;
+            }
+            .big-title {
+                color: #4428d7;
+                & + .small-title {
+                    @include vw(margin-top, 40px);
+                    @include vw(font-size, 38px);
+                    font-weight: 400;
+                    color: #999;
+                    @include breakpoint(desktop) {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+        .welfare-list {
+            @include breakpoint(desktop) {
+                float: right;
+            }
+            .welfare {
+                @extend %clearfix;
+                @include vw(margin-top, 80px);
+                &-3 .text-box strong { @include vw(font-size, 36px); }
+                @include breakpoint(desktop) {
+                    margin-top: 60px;
+                    text-align: right;
+                    &-1 .text-box {
+                        padding-top: 28px;
+                    }
+                    &-2 .text-box {
+                        padding-top: 9px;
+                    }
+                    &-3 .text-box {
+                        padding-top: 77px;
+                    }
+                }
+            }
+            .img-box {
+                @include vw(margin, 0 40px);
+                @include breakpoint(desktop) {
+                    float: right;
+                    display: inline-block;
+                    margin-right: 0;
+                    vertical-align: middle;
+                }
+            }
+            .text-box {
+                @include vw(margin-top, 40px);
+                // @include vw(letter-spacing, -2px);
+                @include breakpoint(desktop) {
+                    float: none;
+                    display: inline-block;
+                    margin: 0;
+                    vertical-align: middle;
+                    text-align: right;
+                    // letter-spacing: -1px;
+                }
+                .small-title {
+                    line-height: 1.8;
+                    color: #333;
+                }
+                .big-title {
+                    @include vw(margin-top, 40px);
+                    color: #333;
+                    @include breakpoint(desktop) {
+                        margin-top: 20px;
+                        font-size: 40px;
+                    }
+                }
+            }
+        }
+    }
+
+    .flo-share {
+        @include vw(padding, 180px 0 100px);
+        background-color: #4428d7;
+        .text-box {
+            text-align: center;
+            color: #fff;
+            .small-title {
+                color: #fff;
+                @include breakpoint(desktop) {
+                    font-size: 50px;
+                    font-weight: bold;
+                }
+            }
+            .big-title {
+                @include vw(margin-top, 40px);
+                @include breakpoint(desktop) {
+                    font-size: 50px;
+                }
+                & + .small-title {
+                    @include vw(margin-top, 40px);
+                    @include breakpoint(desktop) {
+                        font-size: 30px;
+                        font-weight: normal;
+                    }
+                }
+            }
+        }
+        .action {
+            @include vw(margin, 80px 40px 0);
+            a {
+                display: block;
+                @include vw(padding, 50px 0);
+                @include vw(font-size, 48px);
+                @include vw(border-radius, 80px);
+                background-color: #333;
+                @include breakpoint(desktop) {
+                    width: 320px;
+                    margin: 0 auto;
+                    padding: 25px 0 24px;
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+}
