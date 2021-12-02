@@ -29,20 +29,32 @@ function floInit(){
 
     getTimer('.flo-share .small-title','Dec 31,2021,23:59');
 
-    /* 공고바로가기 작업시 해당 영역 미연출 */
-    setTimeout(function splashHidden(){
-        $('.video-box').fadeOut();
-    }, 1500);
+    //luckshim 추가작업 2021.12.02
+    var recruitTab = getUrlParameter('recruitTab');
 
-    setTimeout(function gateOpen(){
-        $('.flo-gate').addClass('hide');
-        $('.flo').addClass('open');
-    }, 2500);
+    //luckshim 추가작업 2021.12.02
+    if(recruitTab != undefined){
+        $('.flo-gate').addClass('hide');  // 게이트 숨김처리
+        $('.flo').addClass('open'); // 메인 활성화
+    }
+    else {
 
-    $('.flo-gate a').on('click', function(){
-        $(this).parents('.flo-gate').addClass('hide');
-        $('.flo').addClass('open');
-    });
+        /* 공고바로가기 작업시 해당 영역 미연출 */
+        setTimeout(function splashHidden(){
+            $('.video-box').fadeOut();
+        }, 1500);
+
+        setTimeout(function gateOpen(){
+            $('.flo-gate').addClass('hide');
+            $('.flo').addClass('open');
+        }, 2500);
+
+        $('.flo-gate a').on('click', function(){
+            $(this).parents('.flo-gate').addClass('hide');
+            $('.flo').addClass('open');
+        });
+    }
+    
     /* // 공고바로가기 작업시 해당 영역 미연출 */
     if( isMobile ) {
     }
@@ -553,4 +565,44 @@ function introView(){
     $('#popupIntro').find('.intro-4 .answer').html(_answer4[idx]);
     $('#popupIntro').find('.intro-5 .answer').html(_answer5[idx]);
     $('#popupIntro').find('.intro-6 .answer').html(_answer6[idx]);
+}
+
+
+
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+
+var snsUrl = function(recruitTab){
+    var shareUrl = "https://flo-recruit.dreamuscompany.com/html/index.html?recruitTab=" + recruitTab;
+    //var shareUrl = "https://flo.dev01-tester.kr/html/index.html?recruitTab=" + recruitTab;
+
+    Share.init({
+        twitterButton: "",
+        naverButton: "",
+        kakaotalkButton: ".share-kakao",
+        facebookButton: "",
+        urlcopyButton: ".share-copy",
+        kakaostoryButton: "",
+        emailButton: ".share-mail",
+        smsButton: "",
+        kakaoJavascriptID: "6fd67c2f68c54c11345946339960e5a1",
+        facebookAppID: "",
+        url: shareUrl,
+        title: "21년 FLO 대규모 채용 : FLO에서 일해봐",
+        solutionTitle: "21년 FLO 대규모 채용 : FLO에서 일해봐"
+    });
 }

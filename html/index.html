@@ -4816,7 +4816,7 @@
 </div>
 <script type="text/javascript" src="../libs/slick/slick.min.js"></script>
 <script type="text/javascript" src="../libs/countTo/jquery.countTo.js"></script>
-<script src="../js/script.js"></script>
+<script src="../js/script.js?v=20211202"></script>
 
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="../js/univ.share.js"></script>
@@ -4827,26 +4827,48 @@
         console.log(wid);
     });
 
-    $(document).ready(function () {        
+    $(document).ready(function () {  
 
-        var shareUrl = "https://flo-recruit.dreamuscompany.com";
+        var _recruitTab = "tech";
+        var _idx = 0;
+        $selector = $('.recruit-wrap');
+        $($selector).find('.recruit-tab').children('li').on('click', function(){
+            _idx = $(this).index();
+            switch(_idx){
+                case 0 :  _recruitTab = "tech"; break;
+                case 1 :  _recruitTab = "platformbiz"; break;
+                case 2 :  _recruitTab = "entertainmentbiz"; break;
+                case 3 :  _recruitTab = "staff"; break;
+            }
 
-        Share.init({
-            twitterButton: "",
-            naverButton: "",
-            kakaotalkButton: ".share-kakao",
-            facebookButton: "",
-            urlcopyButton: ".share-copy",
-            kakaostoryButton: "",
-            emailButton: ".share-mail",
-            smsButton: "",
-
-            kakaoJavascriptID: "6fd67c2f68c54c11345946339960e5a1",
-            facebookAppID: "",
-            url: shareUrl,
-            title: "얼리버드 채용 : 2022년, FLO에서 일해봐",
-            solutionTitle: "얼리버드 채용 : 2022년, FLO에서 일해봐"
+            snsUrl(_recruitTab);            
         });
+        
+        var recruitTab = getUrlParameter('recruitTab');
+        if(recruitTab != undefined){
+            switch(recruitTab){
+                case "tech" : _idx = 0; break;
+                case "platformbiz" : _idx = 1; break;
+                case "entertainmentbiz" : _idx = 2; break;
+                case "staff" : _idx = 3; break;
+            }
+
+            var  tabList = $($selector).find('.recruit-tab').children('li');
+
+            tabList.removeClass('on');
+            tabList.eq(_idx).addClass('on');
+
+            $($selector).find('.bundle').removeClass('on');
+            $($selector).find('.bundle').eq(_idx).addClass('on');
+
+            setTimeout(function(){
+                $('html, body').animate({
+                    scrollTop: $("#floRecruit").offset().top
+                }, 1000);
+            }, 1500);
+        }
+
+        snsUrl(_recruitTab);
     });
 </script>
 </body>
