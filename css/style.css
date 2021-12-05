@@ -5889,6 +5889,10 @@ button {
   margin-left: 0;
 }
 
+.flo .flo-recruit .recruit-wrap .recruit-table .recruit-detail a {
+  border-bottom: 1px solid #000;
+}
+
 .flo .flo-recruit .recruit-wrap .recruit-table .recruit-detail .detail-action {
   margin: 5.55556vw 0 11.11111vw;
   text-align: center;
