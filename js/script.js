@@ -12,6 +12,7 @@ var _wid;
 
 $(function () {
   floInit();
+  mainTitlePopup();
 });
 
 function floInit() {
@@ -27,7 +28,7 @@ function floInit() {
   floEvent();
   slideEvent();
 
-  getTimer('.flo-share .small-title', 'Dec 31,2021,23:59');
+  getTimer('.flo-share .small-title', 'Jan 31,2022,23:59');
 
   //luckshim 추가작업 2021.12.02
   var recruitTab = getUrlParameter('recruitTab');
@@ -146,7 +147,7 @@ function popupPosition($popupLayer) {
   $popupLayer.css({ top: topValue });
 }
 
-// getTimer('.banner-timer','May 29,2020,20:59');
+// getTimer('.banner-timer', 'May 29,2020,20:59');
 function getTimer($selector, $dateTime) {
   var selector = $selector;
   var delay = 10;
@@ -623,8 +624,8 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 var snsUrl = function (recruitTab) {
-  //var shareUrl = 'https://flo-recruit.dreamuscompany.com/html/index.html?recruitTab=' + recruitTab;
-  var shareUrl = "https://flo.dev01-tester.kr/html/index.html?recruitTab=" + recruitTab;
+  var shareUrl = 'https://flo-recruit.dreamuscompany.com/html/index.html?recruitTab=' + recruitTab;
+  //var shareUrl = "https://flo.dev01-tester.kr/html/index.html?recruitTab=" + recruitTab;
 
   Share.init({
     twitterButton: '',
@@ -642,3 +643,9 @@ var snsUrl = function (recruitTab) {
     solutionTitle: '21년 FLO 대규모 채용 : FLO에서 일해봐'
   });
 };
+
+function mainTitlePopup() {
+  $('.main-title-popup .btn-close').on('click', function () {
+    $('.main-title-popup').fadeOut();
+  });
+}
