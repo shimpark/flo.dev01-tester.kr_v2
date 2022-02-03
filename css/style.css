@@ -1932,7 +1932,7 @@ button { display: inline-block; vertical-align: middle; white-space: nowrap; fon
 
 .flo .flo-welfare .text-box { text-align: left; }
 
-@media screen and (min-width: 1200px) { .flo .flo-welfare .text-box { float: left; width: auto; margin-top: 405px; } }
+@media screen and (min-width: 1200px) { .flo .flo-welfare .text-box { float: left; width: auto; margin-top: 320px; } }
 
 .flo .flo-welfare .text-box .big-title { color: #4428d7; }
 
