@@ -12,7 +12,7 @@ var _wid;
 
 $(function () {
   floInit();
-  mainTitlePopup();
+  // mainTitlePopup();
 });
 
 function floInit() {
@@ -287,13 +287,14 @@ function floEvent() {
     if (st >= _recruitTop) $('.flo-fixed').children('.wrap-4').show().siblings().hide();
     if (st >= _welfareTop) $('.flo-fixed').children('.wrap-5').show().siblings().hide();
 
-    var _intro1 = $('.flo-intro .text-1').offset().top - 250,
-      _intro2 = $('.flo-intro .text-2').offset().top - 250,
-      _intro3 = $('.flo-intro .text-3').offset().top - 250;
+    // 02/07 삭제 적용
+    // var _intro1 = $('.flo-intro .text-1').offset().top - 250,
+    //   _intro2 = $('.flo-intro .text-2').offset().top - 250,
+    //   _intro3 = $('.flo-intro .text-3').offset().top - 250;
 
-    if (st >= _intro1) $('.flo-intro .text-1').addClass('on').siblings().removeClass('on');
-    if (st >= _intro2) $('.flo-intro .text-2').addClass('on').siblings().removeClass('on');
-    if (st >= _intro3) $('.flo-intro .text-3').addClass('on').siblings().removeClass('on');
+    // if (st >= _intro1) $('.flo-intro .text-1').addClass('on').siblings().removeClass('on');
+    // if (st >= _intro2) $('.flo-intro .text-2').addClass('on').siblings().removeClass('on');
+    // if (st >= _intro3) $('.flo-intro .text-3').addClass('on').siblings().removeClass('on');
 
     var oTop = $('#floNow .level-list .level-1').offset().top - window.innerHeight;
     if (_numberCounted == 0 && $(window).scrollTop() > oTop) {
@@ -645,7 +646,7 @@ var snsUrl = function (recruitTab) {
 };
 
 function mainTitlePopup() {
-  $('.main-title-popup .btn-close').on('click', function () {
+  $('.main-title-popup .btn-popup-close').on('click', function () {
     $('.main-title-popup').fadeOut();
   });
 }

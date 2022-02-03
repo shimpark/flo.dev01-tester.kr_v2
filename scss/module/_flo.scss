@@ -2051,42 +2051,45 @@
 }
 
 .main-title-popup {
-  position: absolute;
-  top: 75px;
+  transform: translateY(-50%);
+  position: fixed;
+  top: 50%;
   left: 50%;
   z-index: 9999999999;
-  margin-left: 75px;
-  @media (min-width: 1200px) {
-    display: block !important;
-  }
+  margin-left: -120px;
   @media (max-width: 1200px) {
+    transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
     margin-left: 0;
     background-color: rgba(#000, 0.5);
   }
   .popup-wrapper {
     max-width: 500px;
+    border-radius: 22px;
     background-color: #fff;
+    box-shadow: 1px 1px 11px -1px #666;
     @media (max-width: 1200px) {
       @include vw(width, 600px);
     }
   }
   .popup-inner {
     position: relative;
-    padding: 35px 40px;
-    @media (max-width: 1200px) {
-      padding: 30px;
-    }
+    padding: 60px 30px;
+    @include vw(padding-top, 60px);
+    @include vw(padding-bottom, 40px);
+    @include vw(padding-left, 30px);
+    @include vw(padding-right, 30px);
+    // @media (max-width: 1200px) {
+    //   padding: 40px 30px;
+    // }
   }
   .btn-close {
-    display: none;
+    display: block;
     position: absolute;
     top: 20px;
     right: 20px;
@@ -2097,9 +2100,6 @@
     background-position: 50% 50%;
     background-image: url('../img/pc/icon-close-bk-23x23.png');
     background-size: cover;
-    @media (max-width: 1199px) {
-      display: block;
-    }
   }
   .popup-title {
     line-height: 1.4;
@@ -2108,21 +2108,38 @@
     font-family: $font-gmarket;
   }
   .guide-text {
+    @include vw(padding-top, 25px);
+    @include vw(padding-bottom, 25px);
+    @include vw(padding-left, 20px);
+    @include vw(padding-right, 20px);
     text-align: center;
     line-height: 1.5;
     @include vw(font-size, 20px);
-    @include vw(margin-top, 25px);
+    @include vw(margin-top, 30px);
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
     @media (min-width: 1200px) {
       font-size: 17px;
     }
   }
   .btn-more {
     display: inline-block;
-    @include vw(margin-top, 25px);
+    @include vw(margin-top, 40px);
     padding: 12px 30px;
     @include vw(font-size, 16px);
     color: #fff;
     border-radius: 40px;
     background-color: #4428d7;
+  }
+  .btn-bottom-close {
+    display: block;
+    @include vw(width, 150px);
+    @include vw(height, 40px);
+    @include vw(line-height, 40px);
+    margin: 0 auto;
+    @include vw(margin-top, 50px);
+    @include vw(font-size, 16px);
+    color: #fff;
+    background-color: #666;
   }
 }
